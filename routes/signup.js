@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const user = require("../models/user");
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 router.get("/", (req, res, next) => {
     res.render("signup");
@@ -9,9 +10,9 @@ router.get("/", (req, res, next) => {
 router.post("/", async (req, res, next) => {
     let errMessage = "";
     let alreadyRegistered = false;
-    if (user.body.password !== user.body.confirmPswd) {
+    if (req.body.password !== req.body.confirmPswd) {
         const message = "password didnt match";
-        res.send({ mes: message });
+        return res.send({ mes: message });
     }
     try {
         User.find({ userName: req.body.username }).then((user) => {
@@ -27,8 +28,18 @@ router.post("/", async (req, res, next) => {
             }
         });
         if (alreadyRegistered) {
-            res.send({ err: errMessage });
+            return res.send({ err: errMessage });
         }
+        bcrypt.hash(req.body.password, 10, function (err, hash) {
+            // Store hash in your password DB.
+            const user = new User({
+                fullName: `${req.body.firstname} ${req.body.lastname}`,
+                userName: req.body.username,
+                email: req.body.email,
+                password: hash,
+            });
+            user.save();
+        });
     } catch {
         (err) => {
             throw new Error(err);

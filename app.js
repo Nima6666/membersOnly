@@ -30,6 +30,8 @@ app.use(
     })
 );
 
+require("./config/passportConfig");
+
 app.use(passport.initialize());
 app.use(passport.session());
 
