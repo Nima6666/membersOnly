@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
 const router = require("express").Router();
+const loginController = require("../controller/loginController");
 
-router.get("/", function (req, res) {
-    res.render("login");
-});
+router.get("/", loginController.login_get);
+
+module.exports = router;

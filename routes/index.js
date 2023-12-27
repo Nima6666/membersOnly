@@ -1,10 +1,8 @@
 var express = require("express");
 var router = express.Router();
+const indexController = require("../controller/indexController");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-    // console.log(req.session);
-    res.render("index", { title: "membersOnly" });
-});
+router.get("/", indexController.index_get);
 
 module.exports = router;

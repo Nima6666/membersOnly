@@ -2,16 +2,17 @@ var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-const session = require("express-session");
 const passport = require("passport");
+const session = require("express-session");
+var logger = require("morgan");
+
 require("dotenv").config();
 
-const connection = require("./dbs/database");
+require("./db/databaseConnection");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var signupRouter = require("./routes/signup");
+const loginRouter = require("./routes/login");
+const signupRouter = require("./routes/signup");
 
 var app = express();
 
@@ -21,16 +22,11 @@ app.set("view engine", "ejs");
 
 app.use(
     session({
-        secret: process.env.SECRET,
-        resave: false,
+        secret: process.env.URL,
         saveUninitialized: true,
-        cookie: {
-            maxAge: 12 * 60 * 60 * 1000, //cookie session expires after 12 hours
-        },
+        resave: false,
     })
 );
-
-require("./config/passportConfig");
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -42,7 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 
 // catch 404 and forward to error handler
@@ -60,7 +56,5 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render("error");
 });
-
-console.log("ksjdfhlasjd")
 
 module.exports = app;
