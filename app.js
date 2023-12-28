@@ -7,14 +7,14 @@ const session = require("express-session");
 var logger = require("morgan");
 
 require("dotenv").config();
+var app = express();
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
 
 require("./db/databaseConnection");
-
-var indexRouter = require("./routes/index");
-const loginRouter = require("./routes/login");
-const signupRouter = require("./routes/signup");
-
-var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -28,14 +28,13 @@ app.use(
     })
 );
 
+require("./config/passportConfig");
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+var indexRouter = require("./routes/index");
+const loginRouter = require("./routes/login");
+const signupRouter = require("./routes/signup");
 
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
