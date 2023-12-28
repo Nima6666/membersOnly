@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(0, 0, 169);
+    color: white;
+    padding: 0 40px 0 40px;
+}
+
+.rside {
+    display: flex;
+    align-items: center;
+}
+
+.rside > * {
+    margin: 10px;
+}
+
+.rside > * {
+    background-color: rgb(12, 218, 12);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px -5px rgb(0, 20, 0);
+    transition: 0.2s ease all;
+    font-weight: bold;
+}
+
+.rside > button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px -15px rgb(0, 20, 0);
+}
+
+.rside > a {
+    background-color: rgb(255, 146, 146);
+    padding: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+    font-size: small;
+}

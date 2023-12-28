@@ -10,4 +10,6 @@ router.get("/success", authHandler.isAuth, indexController.appLoginSuccessful);
 
 router.get("/login-failed", indexController.appLoginFailed);
 
+router.get("/logout", indexController.appLogout);
+
 module.exports = router;

@@ -1,5 +1,5 @@
 module.exports.index_get = function (req, res) {
-    res.render("index", { title: "AuthDemo" });
+    res.render("index", { title: "membersOnly" });
 };
 
 module.exports.appLoginSuccessful = (req, res) => {
@@ -8,4 +8,13 @@ module.exports.appLoginSuccessful = (req, res) => {
 
 module.exports.appLoginFailed = (req, res) => {
     res.send({ msg: "incorrect Username or password" });
+};
+
+module.exports.appLogout = (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return res.send({ error: err });
+        }
+        res.redirect("/");
+    });
 };

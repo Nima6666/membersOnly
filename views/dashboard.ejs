@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
-    <h1>welcome <%=user%></h1>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/stylesheets/font.css" />
+        <link rel="stylesheet" href="/stylesheets/dashboard.css" />
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <header>
+            <h2>welcome <%=user%></h2>
+            <div class="rside">
+                <button>Become a Member</button>
+                <a href="/logout">logout</a>
+            </div>
+        </header>
+    </body>
 </html>
