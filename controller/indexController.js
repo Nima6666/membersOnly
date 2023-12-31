@@ -1,9 +1,27 @@
-module.exports.index_get = function (req, res) {
-    res.render("index", { title: "membersOnly" });
+const Message = require("../model/message");
+
+module.exports.index_get = async function (req, res) {
+    try {
+        const allMessages = await Message.find();
+        res.render("index", {
+            title: "membersOnly",
+            message: allMessages,
+        });
+    } catch (err) {
+        res.send({ msg: err });
+    }
 };
 
-module.exports.appLoginSuccessful = (req, res) => {
-    res.render("dashboard", { user: req.user.userName });
+module.exports.appLoginSuccessful = async (req, res) => {
+    try {
+        const allMessages = await Message.find();
+        res.render("dashboard", {
+            user: req.user.userName,
+            message: allMessages,
+        });
+    } catch (err) {
+        res.send({ msg: err });
+    }
 };
 
 module.exports.appLoginFailed = (req, res) => {

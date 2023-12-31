@@ -25,6 +25,9 @@ app.use(
         secret: process.env.URL,
         saveUninitialized: true,
         resave: false,
+        cookie: {
+            maxAge: 60 * 60 * 1000,
+        },
     })
 );
 
@@ -35,10 +38,12 @@ app.use(passport.session());
 var indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login");
 const signupRouter = require("./routes/signup");
+const dashboardRouter = require("./routes/dashboard");
 
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
+app.use("/dashboard", dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

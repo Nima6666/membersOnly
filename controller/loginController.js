@@ -5,6 +5,6 @@ module.exports.login_get = function (req, res) {
 };
 
 module.exports.login_post = passport.authenticate("local", {
-    successRedirect: "/success",
+    successRedirect: "/dashboard",
     failureRedirect: "/login-failed",
 });

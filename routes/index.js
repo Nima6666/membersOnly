@@ -6,7 +6,11 @@ const indexController = require("../controller/indexController");
 /* GET home page. */
 router.get("/", indexController.index_get);
 
-router.get("/success", authHandler.isAuth, indexController.appLoginSuccessful);
+router.get(
+    "/dashboard",
+    authHandler.isAuth,
+    indexController.appLoginSuccessful
+);
 
 router.get("/login-failed", indexController.appLoginFailed);
 
