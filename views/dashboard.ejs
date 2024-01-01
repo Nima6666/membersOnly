@@ -12,11 +12,18 @@
         <header>
             <h2 style="font-weight: bold;">welcome <%=user%></h2>
             <div class="rside">
-                <button>Become a Member</button>
+                <% if (member) { %>
+                    <p id="alMem">Already a member</p>
+                    <button id="formOpener">add message</button>
+                <% } else { %>
+                    <button id="beMember">Become a Member</button>
+                <% } %>
                 <a href="/logout">logout</a>
-                <button id="formOpener">add message</button>
             </div>
         </header>
+        <% if (!member) { %>
+            <h2 class="beMemberMsg">Be a member to post messages</h2>
+        <% } %>
         <div>
             <div class="panel">
                 <form action="dashboard/message-post" id="postMessageForm" method="post">
@@ -25,10 +32,18 @@
                         <input type="text" name="title" id="title">
                     </label>
                     <label for="message">Enter Title of your Message
-                        <input type="text" name="message" id="message">
+                        <textarea type="text" name="message" id="message"></textarea>
                     </label>
                     <button id="addMessageBTN">add message</button>
-                    <img src="/images/close.png" id="cross" alt="">
+                    <img src="/images/close.png" class="cross" alt="">
+                </form>
+                <form action="dashboard/membership" method="post" id="beMemberForm">
+                    <label for="beMemeber"><h3>Become a Member</h3> 
+                        <input type="text" name="beMember" id="beMember" placeholder="enter secret code">
+                        <button>submit code</button>
+                    </label>
+                    <p>get code at this <a href="#">link</a></p>
+                    <img src="/images/close.png" class="cross" alt="">
                 </form>
             </div>
             <div class="messages">
@@ -43,10 +58,9 @@
                             <div class="usrMsg">
                                 <%= msg.message %>
                             </div>
-                            <div class="date">Posted on <%= msg.time %></div>
                         </div> 
                         <div class="likesComment">
-                            likecomment
+                            <div class="date">Posted on <%= msg.time %></div>
                         </div>
                     </div>
                 <% }) %>

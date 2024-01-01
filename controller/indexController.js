@@ -18,6 +18,7 @@ module.exports.appLoginSuccessful = async (req, res) => {
         res.render("dashboard", {
             user: req.user.userName,
             message: allMessages,
+            member: req.user.membershipStat,
         });
     } catch (err) {
         res.send({ msg: err });

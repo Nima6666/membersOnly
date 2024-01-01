@@ -75,13 +75,33 @@ header {
 .likesComment {
     padding-top: 15px;
 }
-#postMessageForm {
+
+.panel {
+    display: none;
+    z-index: 400;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    backdrop-filter: blur(10px);
+}
+
+.panel > * {
+    display: none;
+}
+
+#beMemberForm {
+    display: flex;
+}
+
+#postMessageForm,
+#beMemberForm {
     display: none;
     opacity: 0;
     justify-content: space-around;
-    position: absolute;
-    top: calc(100vh / 2 - 200px);
-    right: calc(100vw / 2 - 15vw);
     z-index: 401;
     flex-direction: column;
     padding: 30px;
@@ -89,8 +109,9 @@ header {
     border-radius: 15px;
     box-shadow: 0px 0px 50px -20px rgb(130, 112, 112);
     width: 30vw;
-    height: 400px;
+    min-height: 100px;
     transition: 0.5s ease all;
+    position: relative;
 }
 
 #postMessageForm > label {
@@ -122,28 +143,28 @@ button {
 }
 
 button:hover {
+    cursor: pointer;
     box-shadow: 0 0 20px -15px;
 }
-#postMessageForm.active {
+#postMessageForm.active,
+#beMemberForm.active {
     display: flex;
     opacity: 1;
 }
 
-#cross {
+.cross {
     position: absolute;
     top: 10px;
     right: 10px;
     height: 20px;
+    padding: 5px;
+    border-radius: 50%;
+    transition: 0.2s ease all;
 }
-.panel {
-    display: none;
-    z-index: 400;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    right: 0;
-    backdrop-filter: blur(10px);
+
+.cross:hover {
+    cursor: pointer;
+    background-color: rgb(231, 184, 184);
 }
 
 .user {
@@ -151,5 +172,45 @@ button:hover {
     align-items: center;
 }
 .user > img {
-    padding-right: 20px;
+    padding-right: 10px;
+}
+
+.icon {
+    width: 30px;
+    transition: 0.3s ease all;
+    margin-right: 5px;
+}
+
+#alMem {
+    background-color: rgb(219, 219, 219);
+    color: rgb(144, 122, 0);
+    box-shadow: 0px 0px 50px -30px goldenrod;
+    user-select: none;
+}
+
+textarea {
+    resize: none;
+}
+label > * {
+    font-size: large;
+}
+textarea {
+    margin-top: 5px 0 5px 0;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s ease all;
+    min-height: 300px;
+}
+
+label > textarea:focus {
+    outline: none;
+    box-shadow: inset 1px 1px 10px -7px black;
+}
+
+.beMemberMsg {
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

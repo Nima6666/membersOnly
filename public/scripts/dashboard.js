@@ -1,18 +1,44 @@
 const form = document.querySelector("#postMessageForm");
 
 const addMessageButton = document.querySelector("#formOpener");
-const cross = document.getElementById("cross");
+const cross = document.querySelectorAll(".cross");
+const beMemberBtn = document.querySelector("#beMember");
+const beMemberForm = document.querySelector("#beMemberForm");
+
+const forms = document.querySelectorAll("form");
+
+function showMemberForm() {
+    forms.forEach((formm) => {
+        formm.classList.remove("active");
+    });
+
+    beMemberForm.classList.add("active");
+    document.querySelector(".panel").setAttribute("style", "display:flex");
+}
 
 function addMessageHandler() {
-    console.log("clicked");
-    form.setAttribute("style", "display:flex; opacity:1");
-    document.querySelector(".panel").setAttribute("style", "display:block");
+    forms.forEach((formm) => {
+        formm.classList.remove("active");
+    });
+
+    form.classList.add("active");
+    document.querySelector(".panel").setAttribute("style", "display:flex");
 }
 
 function closeForm() {
-    form.setAttribute("style", "display:none; opacity:0");
+    forms.forEach((formm) => {
+        formm.classList.remove("active");
+    });
     document.querySelector(".panel").setAttribute("style", "display:none");
 }
 
-addMessageButton.addEventListener("click", addMessageHandler);
-cross.addEventListener("click", closeForm);
+if (addMessageButton) {
+    addMessageButton.addEventListener("click", addMessageHandler);
+}
+if (beMemberBtn) {
+    beMemberBtn.addEventListener("click", showMemberForm);
+}
+
+cross.forEach((cros) => {
+    cros.addEventListener("click", closeForm);
+});
