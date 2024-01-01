@@ -6,9 +6,9 @@ module.exports.membershipReq = async (req, res) => {
     try {
         const user = User.findOne({ _id: req.user.id });
         if (req.body.beMember === process.env.MEMBERSHIPKEY) {
-            user.updateOne({ membershipStat: true });
-
-            res.redirect("/dashboard");
+            await user
+                .updateOne({ membershipStat: true })
+                .then(res.redirect("/dashboard"));
         } else {
             res.send({ msg: "membership key didnt match" });
         }
