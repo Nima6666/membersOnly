@@ -5,7 +5,6 @@ module.exports.membershipReq = async (req, res) => {
     if (!req.user) return res.send({ msg: "session timed out" });
     try {
         const user = User.findOne({ _id: req.user.id });
-        console.log(req.body.beMember);
         if (req.body.beMember === process.env.MEMBERSHIPKEY) {
             user.updateOne({ membershipStat: true });
 
@@ -13,7 +12,6 @@ module.exports.membershipReq = async (req, res) => {
         } else {
             res.send({ msg: "membership key didnt match" });
         }
-        console.log(await user);
     } catch (err) {
         res.send({ msg: err });
     }

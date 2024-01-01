@@ -14,7 +14,6 @@ module.exports.validatePassword = async (req, res, next) => {
 
     // Checking Email
     await User.find({ email: req.body.email }).then((users) => {
-        console.log("found Users", users);
         if (users.length > 0) {
             errors.push("email already registered");
         }

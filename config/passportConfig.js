@@ -5,9 +5,7 @@ const bcrypt = require("bcryptjs");
 
 const verifyCallbackFunction = async (username, password, done) => {
     try {
-        console.log("finding User");
         const user = await User.findOne({ userName: username });
-        console.log(user);
         if (!user) {
             return done(null, false, { message: "Incorrect username" });
         }
