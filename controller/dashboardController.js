@@ -14,6 +14,9 @@ module.exports.membershipReq = async (req, res) => {
         }
     } catch (err) {
         res.send({ msg: err });
+        setTimeout(() => {
+            res.redirect("/");
+        }, 5000);
     }
 };
 
@@ -33,5 +36,8 @@ module.exports.message_post = async (req, res) => {
             });
     } catch (err) {
         res.send({ msg: err });
+        setTimeout(() => {
+            res.redirect("/");
+        }, 5000);
     }
 };

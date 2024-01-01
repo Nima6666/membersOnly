@@ -55,6 +55,9 @@ module.exports.validatePassword = async (req, res, next) => {
         next();
     } else {
         res.status(400).json({ errors });
+        setTimeout(() => {
+            res.redirect("/");
+        }, 5000);
     }
 };
 

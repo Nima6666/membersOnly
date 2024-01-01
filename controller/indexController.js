@@ -9,6 +9,9 @@ module.exports.index_get = async function (req, res) {
         });
     } catch (err) {
         res.send({ msg: err });
+        setTimeout(() => {
+            res.redirect("/");
+        }, 5000);
     }
 };
 
@@ -22,11 +25,17 @@ module.exports.appLoginSuccessful = async (req, res) => {
         });
     } catch (err) {
         res.send({ msg: err });
+        setTimeout(() => {
+            res.redirect("/");
+        }, 5000);
     }
 };
 
 module.exports.appLoginFailed = (req, res) => {
     res.send({ msg: "incorrect Username or password" });
+    setTimeout(() => {
+        res.redirect("/");
+    }, 5000);
 };
 
 module.exports.appLogout = (req, res) => {
