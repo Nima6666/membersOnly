@@ -10,61 +10,90 @@
     </head>
     <body>
         <header>
-            <h2 style="font-weight: bold;">welcome <%=user%></h2>
+            <h2 style="font-weight: bold">welcome <%=user%></h2>
             <div class="rside">
                 <% if (member) { %>
-                    <p id="alMem">Already a member</p>
-                    <button id="formOpener">add message</button>
+                <p id="alMem">Already a member</p>
+                <button id="formOpener">add message</button>
                 <% } else { %>
-                    <button id="beMember">Become a Member</button>
+                <button id="beMember">Become a Member</button>
                 <% } %>
                 <a href="/logout">logout</a>
             </div>
         </header>
         <% if (!member) { %>
-            <h2 class="beMemberMsg">Be a member to post messages</h2>
+        <h2 class="beMemberMsg">Be a member to post messages</h2>
         <% } %>
         <div>
             <div class="panel">
-                <form action="dashboard/message-post" id="postMessageForm" method="post">
+                <form
+                    action="dashboard/message-post"
+                    id="postMessageForm"
+                    method="post"
+                >
                     <h1>add a new Message</h1>
-                    <label for="title">Enter Title of your Message
-                        <input type="text" name="title" id="title">
+                    <label for="title"
+                        >Enter Title of your Message
+                        <input type="text" name="title" id="title" />
                     </label>
-                    <label for="message">Enter Title of your Message
-                        <textarea type="text" name="message" id="message"></textarea>
+                    <label for="message"
+                        >Enter Title of your Message
+                        <textarea
+                            type="text"
+                            name="message"
+                            id="message"
+                        ></textarea>
                     </label>
                     <button id="addMessageBTN">add message</button>
-                    <img src="/images/close.png" class="cross" alt="">
+                    <img src="/images/close.png" class="cross" alt="" />
                 </form>
-                <form action="dashboard/membership" method="post" id="beMemberForm">
-                    <label for="beMemeber"><h3>Become a Member</h3> 
-                        <input type="text" name="beMember" id="beMember" placeholder="enter secret code">
+                <form
+                    action="dashboard/membership"
+                    method="post"
+                    id="beMemberForm"
+                >
+                    <label for="beMemeber"
+                        ><h3>Become a Member</h3>
+                        <input
+                            type="text"
+                            name="beMember"
+                            id="beMember"
+                            placeholder="enter secret code"
+                        />
                         <button>submit code</button>
                     </label>
-                    <p>get code at this <a href="https://github.com/Nima6666/membersOnly " target="_blank">link</a></p>
-                    <img src="/images/close.png" class="cross" alt="">
+                    <p>
+                        get code at this
+                        <a
+                            href="https://github.com/Nima6666/membersOnly "
+                            target="_blank"
+                            >link</a
+                        >
+                    </p>
+                    <img src="/images/close.png" class="cross" alt="" />
                 </form>
             </div>
             <div class="messages">
                 <% message.forEach((msg) => { %>
-                    <div class="msg">
-                        <div class="topSec">
-                            <div class="user">
-                                <img id="userIcon" src="/images/user.png" alt="">
-                                <h3 class="usr"><%= msg.user %></h3>
-                            </div>
-                            <div class="title"><h2><%= msg.title %></h2></div>
-                            <div class="usrMsg">
-                                <%= msg.message %>
-                            </div>
-                        </div> 
-                        <div class="likesComment">
-                            <div class="date">Posted on <%= msg.time.toLocaleString(); %></div>
+                <div class="msg">
+                    <div class="topSec">
+                        <div class="user">
+                            <img id="userIcon" src="/images/user.png" alt="" />
+                            <h3 class="usr"><%= msg.user %></h3>
                         </div>
+                        <div class="title"><h2><%= msg.title %></h2></div>
+                        <div class="usrMsg"><%= msg.message %></div>
                     </div>
+                    <div class="likesComment">
+                        <% const userTimeZone =
+                        Intl.DateTimeFormat().resolvedOptions().timeZone; %> <%
+                        const localDate = msg.time.toLocaleString("en-US", {
+                        timeZone: userTimeZone }); %>
+                        <div class="date">Posted on <%= localDate %></div>
+                    </div>
+                </div>
                 <% }) %>
-            </div>            
+            </div>
         </div>
     </body>
 </html>
