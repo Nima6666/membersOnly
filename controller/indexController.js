@@ -2,7 +2,7 @@ const Message = require("../model/message");
 
 module.exports.index_get = async function (req, res) {
     try {
-        const allMessages = await Message.find();
+        const allMessages = await Message.find({}).sort({ time: -1 });
         res.render("index", {
             title: "membersOnly",
             message: allMessages,
@@ -17,7 +17,7 @@ module.exports.index_get = async function (req, res) {
 
 module.exports.appLoginSuccessful = async (req, res) => {
     try {
-        const allMessages = await Message.find();
+        const allMessages = await Message.find({}).sort({ time: -1 });
         res.render("dashboard", {
             user: req.user.userName,
             message: allMessages,
