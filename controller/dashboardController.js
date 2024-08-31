@@ -1,43 +1,42 @@
-const Message = require("../model/message");
-const User = require("../model/user");
+const queries = require("../db/query");
 
 module.exports.membershipReq = async (req, res) => {
-    if (!req.user) return res.send({ msg: "session timed out" });
-    try {
-        const user = User.findOne({ _id: req.user.id });
-        if (req.body.beMember === process.env.MEMBERSHIPKEY) {
-            await user
-                .updateOne({ membershipStat: true })
-                .then(res.redirect("/dashboard"));
-        } else {
-            res.send({ msg: "membership key didnt match" });
-        }
-    } catch (err) {
-        res.send({ msg: err });
-        setTimeout(() => {
-            res.redirect("/");
-        }, 5000);
+  if (!req.user) return res.send({ msg: "session timed out" });
+  try {
+    const user = queries.findUserById(req.user.id);
+    if (req.body.beMember === process.env.MEMBERSHIPKEY) {
+      await queries.giveMemberShip(req.user.id);
+      res.redirect("/dashboard");
+    } else {
+      res.send({ msg: "membership key didnt match" });
     }
+  } catch (err) {
+    res.send({ msg: err });
+    // setTimeout(() => {
+    //   res.redirect("/");
+    // }, 5000);
+  }
 };
 
 module.exports.message_post = async (req, res) => {
-    if (!req.user) return res.send({ msg: "session timed out" });
-    try {
-        const message = new Message({
-            title: req.body.title,
-            message: req.body.message,
-            user: req.user.userName,
-        });
-        await message
-            .save()
-            .then(console.log("message added"))
-            .finally(() => {
-                res.redirect("/dashboard");
-            });
-    } catch (err) {
-        res.send({ msg: err });
-        setTimeout(() => {
-            res.redirect("/");
-        }, 5000);
+  console.log("adding message");
+  if (!req.user) return res.send({ msg: "session timed out" });
+  try {
+    const messageAdded = await queries.addMessage(
+      req.body.title,
+      req.body.message,
+      req.user.id
+    );
+    if (messageAdded) {
+      res.redirect("/dashboard");
+    } else {
+      res.send("Error adding message");
     }
+  } catch (err) {
+    console.log(err);
+    res.send({ msg: err });
+    // setTimeout(() => {
+    //   res.redirect("/");
+    // }, 5000);
+  }
 };

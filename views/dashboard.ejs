@@ -87,7 +87,7 @@
                     <div class="likesComment">
                         <% const userTimeZone =
                         Intl.DateTimeFormat().resolvedOptions().timeZone; %> <%
-                        const localDate = msg.time.toLocaleString("en-US", {
+                        const localDate = msg.created_time.toLocaleString("en-US", {
                         timeZone: userTimeZone }); %>
                         <div class="date">Posted on <%= localDate %></div>
                     </div>
